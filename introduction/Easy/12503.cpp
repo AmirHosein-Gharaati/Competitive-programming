@@ -6,6 +6,7 @@ int main(){
 
     int tt;
     int number_of_instructions;
+    int array[100];
     scanf("%d",&tt);
     while(tt--)
     {
@@ -13,7 +14,7 @@ int main(){
         scanf("%d",&number_of_instructions);
         for (int j = 0; j < number_of_instructions; j++)
         {
-            int array[100];
+            
             char instruction[10];
 
             scanf("%s",instruction);
