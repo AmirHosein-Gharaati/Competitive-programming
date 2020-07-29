@@ -32,12 +32,10 @@ int main(){
                     cin >> temp_name;
                     names_and_moneys[temp_name] += amount_of_spent_money / number_of_people;
                 }
-                names_and_moneys[name] -= amount_of_spent_money - (amount_of_spent_money / number_of_people) * number_of_people;
+                names_and_moneys[name] -= (amount_of_spent_money / number_of_people) * number_of_people;
             }
 
-            else{
-                 names_and_moneys[name] += amount_of_spent_money;
-            }
+
             
         }
         
