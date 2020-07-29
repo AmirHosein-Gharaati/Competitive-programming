@@ -12,7 +12,9 @@ int main(){
         i = 0;
         while(1){
             day = 1.0*(climb-(1.0*i*minus));
-            result += day;
+            if (day >=0)
+                result += day;
+            
             i++;
             if (result > height){
                 printf("success on day %d\n",i);
