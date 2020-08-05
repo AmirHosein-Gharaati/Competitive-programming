@@ -4,31 +4,16 @@ using namespace std;
 
 int matrix[105][105];
 
-bool checker(int n){
-    int row_sum=0,column_sum=0;
-    for (int i = 0; i < n; i++){
-        for(int j = 0 ; j < n ; j++){
-            row_sum += matrix[i][j];
-            column_sum += matrix[j][i];
-        }
-        if (row_sum%2 != 0 || column_sum%2 != 0){
-        return false;
-        }
-    }
-    return true;
-}
-
-int finder(int size){
+int checker(int n){
     int row,column,rr=0,cc=0,sr,sc;
-    int j , i;
-    for (i = 0; i < size; i++){
-        sc = 0;
-        sr=0;
-        for (j = 0; j < size; j++){
-           sc += matrix[i][j];
-           sr += matrix[j][i];
+    int i , j;
+    for (int i = 0; i < n; i++){
+        sc =0;
+        sr =0;
+        for(int j = 0 ; j < n ; j++){
+            sc += matrix[i][j];
+            sr += matrix[j][i];
         }
-        
         if(sc%2!=0){
             cc++;
             column = i;
@@ -44,9 +29,13 @@ int finder(int size){
         printf("Change bit (%d,%d)\n",column+1,row+1);
         return 1;
     }
-    else{
-        return 0;
+    else if (rr == 0 && cc == 0){
+        printf("OK\n");
     }
+    else{
+        printf("Corrupt\n");
+    }
+    return true;
 }
 
 int main(){
@@ -60,16 +49,7 @@ int main(){
             }
         }
 
-        if (checker(size)){
-            printf("OK\n");
-            continue;
-        }
-        else{
-            int result = finder(size);
-            if(result == 0){
-                printf("Corrupt\n");
-            }
-        }
+        checker(size);
     }
     return 0;
 }
