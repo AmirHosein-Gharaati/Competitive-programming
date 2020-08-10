@@ -5,7 +5,7 @@ using namespace std;
 
 int main(){
     int n;
-    int c,r;
+    int c,r,num;
     scanf("%d",&n);
     for (int i = 0; i < n; i++){
         scanf("%d %d",&c,&r);
@@ -14,10 +14,14 @@ int main(){
             continue;
         }
         printf("Case #%d:",i+1);
-        for (int j = r+1; j <= c; j++){
-            if ((c-r)%j == 0){
+        num = c - r;
+        for (int j = r+1; j <= int(sqrt(num/2)); j++){
+            if ((num)%j == 0){
                 printf(" %d",j);
             }
+        }
+        if (num > r+1){
+            printf(" %d",num);
         }
         printf("\n");
     }
