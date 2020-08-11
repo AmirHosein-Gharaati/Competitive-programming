@@ -4,8 +4,8 @@
 using namespace std;
 
 int main(){
-    int n;
-    int c,r,num;
+    int n,num,arr[1000];
+    int c,r,k;
     scanf("%d",&n);
     for (int i = 0; i < n; i++){
         scanf("%d %d",&c,&r);
@@ -15,14 +15,22 @@ int main(){
         }
         printf("Case #%d:",i+1);
         num = c - r;
-        for (int j = r+1; j <= int(sqrt(num/2)); j++){
+        k = 0;
+        for (int j = 1; j <= int(sqrt(num)); j++){
             if ((num)%j == 0){
-                printf(" %d",j);
+                if (j > r){
+                    arr[k++] = j;
+                }
+                if (num/j != j && num/j > r){
+                    arr[k++] = num/j;
+                }
             }
         }
-        if (num > r+1){
-            printf(" %d",num);
+        sort(arr,arr+k);
+        for (int j =0; j < k; j++){
+            printf(" %d",arr[j]);
         }
+        
         printf("\n");
     }
 
