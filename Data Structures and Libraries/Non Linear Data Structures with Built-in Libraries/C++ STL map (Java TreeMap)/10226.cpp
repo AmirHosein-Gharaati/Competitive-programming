@@ -18,6 +18,9 @@ int main(){
         tree_names.clear();
         trees.clear();
         while (getline(cin,line)){
+            if (line.size() == 0){
+                break;
+            }
             trees[line] += 1;
             counts++;
             if (trees.find(line) == trees.end()){
