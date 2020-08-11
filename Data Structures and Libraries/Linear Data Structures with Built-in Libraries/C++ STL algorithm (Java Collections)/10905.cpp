@@ -6,22 +6,23 @@ using namespace std;
 
 bool test(string str1,string str2){
     int i;
+    int str1_len=0,str2_len=0;
     i = 0;
     while (1){
         if (str1[i] > str2[i]){
-            return true;
+            return false;
         }
-        else if (str1[i] == '\0' && str2[i] != '\0'){
-            return true;
+        else if (str1[i] == 0 && str2[i] != 0){
+            return false;
         }
         else if (str1[i] < str2[i]){
-            return false;
+            return true;
         }
-        else if (str1[i] != '\0' && str2[i] == '\0'){
-            return false;
+        else if (str1[i] != 0 && str2[i] == 0){
+            return true;
         }
-        else if(str1[i] == '\0' && str2[i] =='\0'){
-            return false;
+        else if(str1[i] == 0 && str2[i] ==0){
+            return true;
         }
         i++;
     }
