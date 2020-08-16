@@ -2,35 +2,39 @@
 
 using namespace std;
 
-map <string,int> trees;
+
 vector<string> tree_names;
 
 int main(){
 
     int tt;
-    long long int counts;
+    int counts;
     string line;
     cin >> tt;
-    getline(cin,line);
     cin.ignore();
-    for (int i = 0; i < tt; i++){
+    getline(cin,line);
+    
+    while(tt--){
+        map <string,int> trees;
         counts = 0;
-        tree_names.clear();
-        trees.clear();
         while (getline(cin,line)){
-            if (line.size() == 0){
+            if (line.length() == 0){
                 break;
             }
-            trees[line] += 1;
             counts++;
             if (trees.find(line) == trees.end()){
-                tree_names.push_back(line);
-            }   
+                trees[line] = 1;
+            }
+            else{
+                trees[line] += 1;
+            }  
         }
-        sort(tree_names.begin(),tree_names.end());
-        for (auto x : tree_names){
-            cout << x << " "<< trees[x]*1.0/1.0*counts << endl;
+        for (auto x = trees.begin();x != trees.end();x++){
+            if(x!=trees.begin()) printf("\n");
+            cout << x->first;
+            printf(" %.4f\n",double(x->second)*100/counts);
         }
+        if(tt) cout<<endl<<endl; else cout<<endl;
     }
     
 
