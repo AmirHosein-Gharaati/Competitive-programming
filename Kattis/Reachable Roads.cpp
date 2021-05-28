@@ -21,8 +21,8 @@ int main(){
     while(tt--){
         int n;
         cin >> n;
-        adj.resize(n);
-        visited.assign(n, false);
+        adj.clear(); adj.resize(n);
+        visited.clear(); visited.assign(n, false);
 
 
         int e;
