@@ -2,38 +2,55 @@
 
 using namespace std;
 
+int h, w;
 int board[30][70];
-int w, h;
-int minimum_cost;
+int inf = 1 << 30;
+
 typedef pair<int, int> ii;
-vector<ii> ans;
-ii coords[] = {
-    {0, -1},{1, -1}, {1, 0}, {1, 1},{0, 1}
-};
-vector<ii> current_path;
+typedef pair<int ,pair<int, int>> iii;
+bool isDone[30][70];
+ii parent[30][70];
 
-void dfs(int i, int j, int cost){
+void dijkstra(){
     
-    if(i == h){
-        if(cost < minimum_cost){
-            ans.clear();
-            ans = current_path;
-            minimum_cost = cost;
+    for(int i = 0 ; i < 25 ; i++){
+        for(int j = 0 ; j < 65 ; j++){
+            parent[i][j] = {-1, -1};
         }
-        return;
     }
+    
+    memset(isDone, false, sizeof(isDone));
+    vector<vector<int>> dist(h+2, vector<int>(w,inf));
+    dist[0][0] = 0;
 
-    cost += board[i][j];
-    if(cost > minimum_cost) return;
+    priority_queue<iii> q;
+    q.push({0, {0, 0}});
 
+    ii coords[] = {
+        {1, 0},{-1, 0},{1, 1},{1, -1},
+        {0, 1},{0, -1},{-1 ,-1},{-1, 1},
+    };
 
-    for(ii p : coords){
-        int new_i = i+p.first;
-        int new_j = j+p.second;
-        if(new_i <= h && new_j >= 0 && new_j < w){
-            current_path.push_back(make_pair(new_i, new_j));
-            dfs(new_i, new_j, cost);
-            current_path.pop_back();
+    while(!q.empty()){
+        int x = q.top().second.first;
+        int y = q.top().second.second;
+
+        q.pop();
+        // cout << x << " " << y << endl;
+        isDone[x][y] = true;
+
+        for(ii p : coords){
+            int i = p.first + x;
+            int j = p.second + y;
+
+            if(i>=0 && i <= h+1 && j >= 0 && j < w){
+                if(!isDone[i][j] && (dist[x][y] + board[i][j] < dist[i][j])){
+                    
+                    parent[i][j] = {x, y};
+                    dist[i][j] = dist[x][y] + board[i][j];
+                    q.push({-dist[i][j], {i, j}});
+                }
+            }
         }
     }
 
@@ -41,43 +58,42 @@ void dfs(int i, int j, int cost){
 
 int main(){
 
-    
-    while(cin >> h >> w && w+h != 0){
+
+    while(scanf("%d %d", &h, &w) && h+w != 0){
         memset(board, 0, sizeof(board));
-        minimum_cost = 1000;
-        ans.clear();
+
         char c;
-        for(int i = 0 ; i < h ; i++){
+        for(int i = 1 ; i <= h ; i++){
             for(int j = 0 ; j < w ; j++){
                 cin >> c;
                 board[i][j] = c - '0';
             }
         }
 
-        current_path.clear();
-        for(int i = 0 ; i < w ; i++){
-            current_path.push_back(make_pair(0, i));
-            dfs(0, i, 0);
-            current_path.pop_back();
+        dijkstra();
+
+        int x = h+1;
+        int y = w-1;
+
+        while(1){
+            int temp1 = x;
+            int temp2 = y;
+
+            if(temp1 == -1 || temp2 == -1) break;
+            board[x][y] = ' ' - '0' ;
+
+            x = parent[temp1][temp2].first;
+            y = parent[temp1][temp2].second;
+            
         }
 
-        for(ii p : ans){
-            board[p.first][p.second] = -1;
-        }
-
-        for(int i = 0 ; i < h; i++){
+        for(int i = 1 ; i <= h ; i++){
             for(int j = 0 ; j < w ; j++){
-                if(board[i][j] == -1){
-                    cout << " ";
-                }
-                else{
-                    cout << board[i][j];
-                }
+                cout << char(board[i][j] + '0');
             }
             cout << endl;
         }
         cout << endl;
-
     }
 
 
