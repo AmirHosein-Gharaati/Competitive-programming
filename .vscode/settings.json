@@ -3,6 +3,8 @@
         "iostream": "cpp",
         "ostream": "cpp",
         "cmath": "cpp",
-        "complex": "cpp"
+        "complex": "cpp",
+        "bitset": "cpp",
+        "string_view": "cpp"
     }
 }
